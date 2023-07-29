@@ -7,6 +7,10 @@ import org.junit.Test;
 
 import com.example.pojo.Product;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
+
 import java.util.List;
  
 public class TestHibernate {
@@ -71,7 +75,7 @@ public class TestHibernate {
         Session s = sf.openSession();
         s.beginTransaction();
         Product p = (Product) s.get(Product.class, 6);
-        p.setName("iphone-modifed");
+        p.setName("iphone-modified");
         s.merge(p);
         s.getTransaction().commit();
         s.close();
@@ -89,6 +93,28 @@ public class TestHibernate {
         List<Product> ps = s.createQuery(hql,Product.class).list();
         for (Product p : ps) {
             System.out.println("模糊查询的结果之一是："+p.getName());
+        }
+        s.getTransaction().commit();
+        s.close();
+        sf.close();        
+    }
+    //使用JPA, 根据关键字进行模糊查询
+    @Test
+    public void queryProductByNameWithCriteria(){
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        String searchKeyWord = "modified";
+        // 使用JPA标准查询API查询实体列表
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery<Product> criteria = builder.createQuery(Product.class);
+        Root<Product> root = criteria.from(Product.class);
+        criteria.select(root);
+         // Create a lower-case expression for the name attribute
+        criteria.where(builder.like(root.<String> get("name"), "%"+searchKeyWord+"%"));
+        List<Product> ps = s.createQuery(criteria).getResultList();
+        for(Product p : ps){
+            System.out.println("JPA标准查询API查询的结果之一是："+p.getName());
         }
         s.getTransaction().commit();
         s.close();
