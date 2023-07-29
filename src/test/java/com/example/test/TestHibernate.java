@@ -6,6 +6,8 @@ import org.hibernate.cfg.Configuration;
 import org.junit.Test;
 
 import com.example.pojo.Product;
+
+import java.util.List;
  
 public class TestHibernate {
     @Test 
@@ -71,6 +73,23 @@ public class TestHibernate {
         Product p = (Product) s.get(Product.class, 6);
         p.setName("iphone-modifed");
         s.merge(p);
+        s.getTransaction().commit();
+        s.close();
+        sf.close();        
+    }
+    //使用HQL,根据name进行模糊查询
+    @Test
+    public void queryProductByName(){
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        String name = "iphone";
+        String hql = "from Product p where p.name like '%"+name+"%'";
+        System.out.println("模糊查询的HQL语句是: "+hql);
+        List<Product> ps = s.createQuery(hql,Product.class).list();
+        for (Product p : ps) {
+            System.out.println("模糊查询的结果之一是："+p.getName());
+        }
         s.getTransaction().commit();
         s.close();
         sf.close();        
