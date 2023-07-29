@@ -120,4 +120,21 @@ public class TestHibernate {
         s.close();
         sf.close();        
     }
+    //使用标准SQL进行模糊查询
+    @Test
+    public void queryProductByNameWithSQL(){
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        String searchKeyWord = "modified";
+        String sql = "select * from product_ p where p.name like '%"+searchKeyWord+"%'";
+        System.out.println("标准SQL查询语句是: "+sql);
+        List<Product> ps = s.createNativeQuery(sql,Product.class).list();
+        for(Product p : ps){
+            System.out.println("标准SQL查询的结果之一是："+p.getName());
+        }
+        s.getTransaction().commit();
+        s.close();
+        sf.close();        
+    }
 }
