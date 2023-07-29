@@ -16,6 +16,7 @@
         <!-- 没有通过column="name" 显式的指定字段，则默认一致. -->
         <property name="name" />
         <property name="price" />
+        <many-to-one name="category" class="Category" column="cid" />
     </class>
      
 </hibernate-mapping>

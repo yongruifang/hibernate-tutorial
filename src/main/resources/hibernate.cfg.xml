@@ -22,6 +22,7 @@
         <property name="hbm2ddl.auto">update</property>
         <!-- Hibernate会去识别Product这个实体类 -->
         <mapping resource="Product.hbm.xml" />
+        <mapping resource="Category.hbm.xml" />
     </session-factory>
  
 </hibernate-configuration>
