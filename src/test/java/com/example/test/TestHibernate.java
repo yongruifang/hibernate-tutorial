@@ -62,4 +62,17 @@ public class TestHibernate {
         s.close();
         sf.close();        
     }
+    //把id=6的产品名称修改为 iphone-modifed
+    @Test
+    public void updateProductByID(){
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        Product p = (Product) s.get(Product.class, 6);
+        p.setName("iphone-modifed");
+        s.merge(p);
+        s.getTransaction().commit();
+        s.close();
+        sf.close();        
+    }
 }
