@@ -37,4 +37,17 @@ public class TestHibernate {
         s.close();
         sf.close();
     }
+
+    //通过id获取Product对象
+    @Test
+    public void getProductByID(){
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        Product p = (Product) s.get(Product.class, 6);
+        System.out.println("id为6的产品名称是："+p.getName());
+        s.getTransaction().commit();
+        s.close();
+        sf.close();        
+    }
 }
