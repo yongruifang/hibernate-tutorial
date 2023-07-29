@@ -23,6 +23,7 @@
         <!-- Hibernate会去识别Product这个实体类 -->
         <mapping resource="Product.hbm.xml" />
         <mapping resource="Category.hbm.xml" />
+        <mapping resource="User.hbm.xml" />
     </session-factory>
  
 </hibernate-configuration>

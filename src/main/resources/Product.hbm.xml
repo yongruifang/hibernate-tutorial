@@ -17,6 +17,11 @@
         <property name="name" />
         <property name="price" />
         <many-to-one name="category" class="Category" column="cid" />
+        <!-- 实现多对多关系，必须有一张中间表 user_product 用于维护 User和Product -->
+        <set name="users" table="user_product" lazy="false">
+            <key column="pid" />
+            <many-to-many column="uid" class="User" />
+        </set> 
     </class>
      
 </hibernate-mapping>

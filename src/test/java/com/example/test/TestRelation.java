@@ -1,5 +1,6 @@
 package com.example.test;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import com.example.pojo.Category;
 import com.example.pojo.Product;
+import com.example.pojo.User;
 
 public class TestRelation {
     //多对一
@@ -48,4 +50,30 @@ public class TestRelation {
         sf.close();
     }
     //多对多
+    // 实现多对多关系，必须有一张中间表 user_product 用于维护 User和Product
+    // 先增加3个用户,演示产品1被用户1，2,3购买, 产品2被用户1,2,3购买
+    @Test
+    public void many2many(){
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        //增加3个用户
+        Set<User> users = new HashSet<User>();
+        for (int i = 0; i < 3; i++) {
+            User u =new User();
+            u.setName("user"+i);
+            users.add(u);
+            s.persist(u);
+        }        
+        //产品1被用户1,2,3购买
+        Product p1 = (Product) s.get(Product.class, 1); 
+        p1.setUsers(users);
+        //产品2被用户1,2,3购买
+        Product p2 = (Product) s.get(Product.class, 2);
+        p2.setUsers(users);
+        s.persist(p1);
+        s.getTransaction().commit();
+        s.close();
+        sf.close();
+    }
 }
