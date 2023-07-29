@@ -50,4 +50,16 @@ public class TestHibernate {
         s.close();
         sf.close();        
     }
+    //通过id删除Product对象
+    @Test
+    public void deleteProductByID(){
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        Product p = (Product) s.get(Product.class, 11);
+        s.remove(p);
+        s.getTransaction().commit();
+        s.close();
+        sf.close();        
+    }
 }
