@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- 文件名 Product.hbm.xml P一定要大写，要和类保持一致 -->
+ 
+<hibernate-mapping package="com.example.pojo">
+    <!-- 类Product对应表product_ -->
+    <class name="Product" table="product_">
+        <!-- 属性id,映射表里的字段id -->
+        <id name="id" column="id">
+            <!-- id的自增长方式采用数据库的本地方式 -->
+            <generator class="native" />
+        </id>
+        <!-- 没有通过column="name" 显式的指定字段，则默认一致. -->
+        <property name="name" />
+        <property name="price" />
+    </class>
+     
+</hibernate-mapping>

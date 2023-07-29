@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+       "-//Hibernate/Hibernate Configuration DTD 5.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-5.0.dtd">
+ 
+<hibernate-configuration>
+ 
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">admin</property>
+        <!-- SQL dialect -->
+        <!-- 告诉Hibernate底层用的是什么数据库，它才知道应该用什么样的“方言” 去对话。 -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- Hibernate事务管理方式，即每个线程一个事务 -->
+        <property name="current_session_context_class">thread</property>
+        <!-- 是否在控制台显示执行的sql语句 -->
+        <property name="show_sql">true</property>
+        <!-- 有这句话，其实是不需要创建表的，因为Hibernate会自动去创建表结构 -->
+        <property name="hbm2ddl.auto">update</property>
+        <!-- Hibernate会去识别Product这个实体类 -->
+        <mapping resource="Product.hbm.xml" />
+    </session-factory>
+ 
+</hibernate-configuration>
