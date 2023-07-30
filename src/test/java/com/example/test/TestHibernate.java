@@ -5,7 +5,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.Test;
 
+import com.example.pojo.Category;
 import com.example.pojo.Product;
+import com.ibm.icu.impl.units.UnitsData.Categories;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -158,5 +160,16 @@ public class TestHibernate {
         s.getTransaction().commit();
         s.close();
         sf.close();        
+    }
+    // 使用数据库连接池c3p0
+    @Test
+    public void testPool(){
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        s.createQuery("from Category",Category.class).list();
+        s.getTransaction().commit();
+        s.close();
+        sf.close();
     }
 }
