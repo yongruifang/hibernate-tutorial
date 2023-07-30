@@ -56,6 +56,20 @@
         <artifactId>ehcache</artifactId>
         <version>3.10.8</version>
     </dependency>
+<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-jcache -->
+    <dependency>
+        <groupId>org.hibernate.orm</groupId>
+        <artifactId>hibernate-jcache</artifactId>
+        <version>6.2.7.Final</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.cache/cache-api -->
+    <dependency>
+        <groupId>javax.cache</groupId>
+        <artifactId>cache-api</artifactId>
+        <version>1.1.1</version>
+    </dependency>
+
+
     <!-- hibernate-jpa -->
     <!-- JPA Java Persistence API , 用来简化 Java 对象与数据库之间的映射和持久化操作的框架-->
     <!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api -->

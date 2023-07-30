@@ -20,6 +20,11 @@
         <property name="show_sql">true</property>
         <!-- 有这句话，其实是不需要创建表的，因为Hibernate会自动去创建表结构 -->
         <property name="hbm2ddl.auto">update</property>
+        <!-- 开启二级缓存 -->
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <!-- 使用ehcache作为二级缓存 -->
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.jcache.JCacheRegionFactory</property>
+        <property name="hibernate.javax.cache.provider">org.ehcache.jsr107.EhcacheCachingProvider</property>
         <!-- Hibernate会去识别Product这个实体类 -->
         <mapping resource="Product.hbm.xml" />
         <mapping resource="Category.hbm.xml" />
