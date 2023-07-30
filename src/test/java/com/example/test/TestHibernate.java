@@ -137,4 +137,26 @@ public class TestHibernate {
         s.close();
         sf.close();        
     }
+    // 使用JPA进行分页查询
+    @Test
+    public void queryProductByPage(){
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        int start = 2;
+        int count = 5;
+        System.out.println("使用JPA进行分页查询，从第"+start+"条开始，查询"+count+"条");
+        // 使用JPA标准查询API查询实体列表
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery<Product> criteria = builder.createQuery(Product.class);
+        Root<Product> root = criteria.from(Product.class);
+        criteria.select(root);
+        List<Product> ps = s.createQuery(criteria).setFirstResult(start).setMaxResults(count).getResultList();
+        for(Product p : ps){
+            System.out.println(p.getName());
+        }
+        s.getTransaction().commit();
+        s.close();
+        sf.close();        
+    }
 }
